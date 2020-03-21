@@ -1,6 +1,8 @@
 version: '3.5'
 services:
     passport-saml-nodejs-proxy:
+        environment:
+        - HTTPS=true
         container_name: passport-saml-nodejs-proxy
         build:
             context: .
