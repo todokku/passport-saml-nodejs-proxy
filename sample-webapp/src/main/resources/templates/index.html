@@ -1,29 +1,37 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>Sample Web Application</title>
+	<title>Sample Web Application</title>
 
-<link rel="stylesheet"
-	th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}" />
-<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
 
 </head>
 
 <body>
-	<pre id="contentsF"></pre>
-	<script th:inline="javascript">
-		/*<![CDATA[*/
-		var contents = /*[[${contents}]]*/null;
-		/*]]>*/
-		var contentsF = document.getElementById("contentsF");
-		contentsF.innerHTML = JSON.stringify(contents, undefined, 4);
-	</script>
-
-	<script type="text/javascript"
-		th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+	<h1>HEADERS</h1>
+	<table class="table table-sm">
+		<th:block th:each="item: ${headers}">
+			<tr th:each="fuse: ${item.value}">
+				<td th:text="${item.key}" />
+				<td th:text="${item.value}" />
+			</tr>
+		</th:block>
+	</table>
+	<h1>PARAMETERS</h1>
+	<table class="table table-sm">
+		<th:block th:each="item: ${params}">
+			<tr th:each="fuse: ${item.value}">
+				<td th:text="${item.key}" />
+				<td th:text="${item.value}" />
+			</tr>
+		</th:block>
+	</table>
+	<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
 </body>
+
 </html>

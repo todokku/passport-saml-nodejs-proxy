@@ -17,12 +17,6 @@ public class SampleController {
 			@RequestHeader final Map<String, String> headers, final Model model) {
 		model.addAttribute("params", params);
 		model.addAttribute("headers", headers);
-
-		final Map<String, Object> contents = new HashMap<String, Object>();
-		contents.put("PARAMETERS", params);
-		contents.put("HEADERS", headers);
-		model.addAttribute("contents", contents);
-
 		return "index";
 	}
 
