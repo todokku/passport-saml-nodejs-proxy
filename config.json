@@ -2,8 +2,9 @@
     "proxy": {
         "target": "https://cerpassrx-dev.azurewebsites.net"
     },
-    "jwt":{
-        "signingKey": "top_secret"
+    "keys":{
+        "jwtSigningKey": "top_secret",
+        "cookieSigningKeys": "secret"
     },
     "saml": {
         "azure": {

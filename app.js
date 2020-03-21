@@ -55,7 +55,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-    secret: "secret",
+    secret: config.keys.cookieSigningKeys,
     resave: true,
     saveUninitialized: true
 }));
@@ -88,19 +88,17 @@ function ensureAuthenticated(req, res, next) {
 
 function createToken(req, samlProvider) {
     const samlStrategy = config.saml[samlProvider];
-    const emailAttribute = samlStrategy.emailAttribute;    
+    const emailAttribute = samlStrategy.emailAttribute;
     console.log('req.user: ' + JSON.stringify(req.user));
-
     const body = { email: req.user[emailAttribute], provider: samlProvider };
-    //const body = { email: 'jp@axissoftwaredynamics.com', provider: samlProvider };
-
-    return jwt.sign({ user: body }, config.jwt.signingKey);
+    return jwt.sign({ user: body }, config.keys.jwtSigningKey);
 }
 
 app.all('*', ensureAuthenticated);
 var filter = function (pathname, req) {
     return !pathname.match('^/saml');
 };
+
 app.use('/', proxy(filter, {
     target: config.proxy.target,
     changeOrigin: true,

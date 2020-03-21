@@ -13,8 +13,8 @@ var options = {};
 if (process.env.HTTPS === 'true') {
   http = require('https');
   options = {
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
+    key: fs.readFileSync('ssl.key.pem'),
+    cert: fs.readFileSync('ssl.cert.pem')
   };
 }
 
