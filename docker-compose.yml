@@ -1,12 +1,12 @@
 version: '3.5'
 services:
-    saml-sp:
+    passport-saml-nodejs-proxy:
         container_name: passport-saml-nodejs-proxy
         build:
             context: .
             dockerfile: Dockerfile
         ports:
-        - "3000:3000"
+        - "443:3000"
         restart: always
         volumes:
         - ./cert:/usr/src/app/cert
@@ -16,7 +16,7 @@ services:
         hostname: saml-sp
         domainname: example.com
         extra_hosts:
-        - "sp.example.com:127.0.0.1"
+        - "passport-saml-nodejs-proxy.example.com:127.0.0.1"
 
 networks:
     example.com:

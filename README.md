@@ -7,4 +7,4 @@
 - restart app
 
 ## references
-    openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 900 -subj "/C=US/ST=CA/L=Mountain View/O=TeamzSkill, Inc/OU=Security/CN=teamzskill.com"
+    openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 900 -subj "/C=CA/ST=ON/L=Brampton/O=malotian's lab/OU=Security/CN=passport-saml-nodejs-proxy.example.com"
