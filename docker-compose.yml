@@ -20,6 +20,22 @@ services:
         extra_hosts:
         - "passport-saml-nodejs-proxy.example.com:127.0.0.1"
 
+    sample-webapp:
+        container_name: sample-webapp
+        build:
+            context: sample-webapp
+            dockerfile: Dockerfile
+        ports:
+        - "80:8080"
+        restart: always
+        image: malotian/sample-webapp:latest
+        networks:
+            - example.com
+        hostname: sample-webapp
+        domainname: example.com
+        extra_hosts:
+        - "sample-webapp.example.com:127.0.0.1"        
+
 networks:
     example.com:
        driver: bridge
