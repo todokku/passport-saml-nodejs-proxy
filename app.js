@@ -104,6 +104,16 @@ app.use('/', proxy(filter, {
     changeOrigin: true,
     pathRewrite: {
         '^/non-sso/': '/' // rewrite path
+    },
+    onProxyReq: function (proxyReq, req, res) {
+        const preq = url.parse(req.url, true);
+        var samlProvider = preq.query['provider'];
+        var jwt = preq.query['jwt'];
+
+        if (samlProvider === undefined)
+            samlProvider = keys[0];
+
+        proxyReq.setHeader('jwt', createToken(req, samlProvider));
     }
 }));
 
