@@ -1,0 +1,25 @@
+{
+  "name": "passport-saml-proxy",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "1.11.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-session": "1.10.2",
+    "express-unless": "^0.5.0",
+    "http-errors": "~1.6.3",
+    "http-proxy": "^1.18.0",
+    "http-proxy-middleware": "^0.20.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "~1.9.1",
+    "node-sessionstorage": "^1.0.0",
+    "passport": "0.2.1",
+    "passport-saml": "0.9.0",
+    "pug": "2.0.0-beta11"
+  }
+}

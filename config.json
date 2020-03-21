@@ -1,0 +1,28 @@
+{
+    "proxy": {
+        "target": "http://cerpassrx-dev.azurewebsites.net"
+    },
+    "jwt":{
+        "signingKey": "top_secret"
+    },
+    "saml": {
+        "azure": {
+            "callbackUrl": "https://cerpassrx-saml-proxy-ex.azurewebsites.net/saml/login/callback?provider=azure",
+            "entryPoint": "https://login.microsoftonline.com/33e8b2ca-a8a2-4393-9334-072697b73fed/saml2",
+            "issuer": "https://cerpassrx-saml-proxy-ex.azurewebsites.net",
+            "emailAttribute": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+        },
+        "okta": {
+            "callbackUrl": "https://cerpassrx-saml-proxy-ex.azurewebsites.net/saml/login/callback?provider=okta",
+            "entryPoint": "https://dev-904187.oktapreview.com/app/malotianslabdev904187_routerteamzskillcom_1/exknxjexy5MAXXlVi0h7/sso/saml",
+            "issuer": "https://cerpassrx-saml-proxy-ex.azurewebsites.net",
+            "emailAttribute": "email"
+        },
+        "samltest.id": {
+            "callbackUrl": "https://cerpassrx-saml-proxy-ex.azurewebsites.net/saml/login/callback?provider=samltest.id",
+            "entryPoint": "https://samltest.id/idp/profile/SAML2/Redirect/SSO",
+            "issuer": "https://cerpassrx-saml-proxy-ex.azurewebsites.net",
+            "emailAttribute": "email"
+        }
+    }
+}

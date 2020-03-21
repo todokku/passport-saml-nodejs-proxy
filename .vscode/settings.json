@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/6e019c14-1fbb-4df6-9191-d4f3cf076472/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/cerpassrx-saml-proxy-ex",
+    "appService.deploySubpath": ""
+}
