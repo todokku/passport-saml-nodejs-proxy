@@ -1,6 +1,6 @@
 {
     "proxy": {
-        "target": "http://cerpassrx-dev.azurewebsites.net"
+        "target": "http://sample-webapp.azurewebsites.net"
     },
     "keys":{
         "jwtSigningKey": "top_secret",

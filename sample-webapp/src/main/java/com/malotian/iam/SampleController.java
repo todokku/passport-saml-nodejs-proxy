@@ -6,13 +6,14 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class SampleController {
 
 	@GetMapping("/")
-	public String mainWithParam(@RequestParam Map<String, String> params, @RequestParam Map<String, String> headers, Model model) {
+	public String mainWithParam(@RequestParam Map<String, String> params, @RequestHeader Map<String, String> headers, Model model) {
 		model.addAttribute("params", params);
 		model.addAttribute("headers", headers);
 

@@ -14,11 +14,10 @@ services:
         - ./cert:/usr/src/app/cert
         image: malotian/passport-saml-nodejs-proxy:latest
         networks:
-            - example.com
+            - azurewebsites.net
         hostname: saml-sp
-        domainname: example.com
-        extra_hosts:
-        - "passport-saml-nodejs-proxy.example.com:127.0.0.1"
+        domainname: azurewebsites.net
+        #extra_hosts:
 
     sample-webapp:
         container_name: sample-webapp
@@ -26,17 +25,16 @@ services:
             context: sample-webapp
             dockerfile: Dockerfile
         ports:
-        - "80:8080"
+        - "80:80"
         restart: always
         image: malotian/sample-webapp:latest
         networks:
-            - example.com
+            - azurewebsites.net
         hostname: sample-webapp
-        domainname: example.com
-        extra_hosts:
-        - "sample-webapp.example.com:127.0.0.1"        
+        domainname: azurewebsites.net
+        #extra_hosts:
 
 networks:
-    example.com:
+    azurewebsites.net:
        driver: bridge
-       name: example.com
+       name: azurewebsites.net
