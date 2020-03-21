@@ -14,10 +14,9 @@ services:
         - ./cert:/usr/src/app/cert
         image: malotian/passport-saml-nodejs-proxy:latest
         networks:
-            - azurewebsites.net
+            - docker.local
         hostname: saml-sp
-        domainname: azurewebsites.net
-        #extra_hosts:
+        domainname: docker.local
 
     sample-webapp:
         container_name: sample-webapp
@@ -29,12 +28,13 @@ services:
         restart: always
         image: malotian/sample-webapp:latest
         networks:
-            - azurewebsites.net
+            docker.local:
+                aliases:
+                    - cerpassrx-dev.azurewebsites.net
         hostname: sample-webapp
-        domainname: azurewebsites.net
-        #extra_hosts:
+        domainname: docker.local
 
 networks:
-    azurewebsites.net:
+    docker.local:
        driver: bridge
-       name: azurewebsites.net
+       name: docker.local
