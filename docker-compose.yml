@@ -1,12 +1,12 @@
 version: '3.5'
 services:
     saml-sp:
-        container_name: passport-saml-nodejs-sample
+        container_name: passport-saml-nodejs-proxy
         build:
             context: .
             dockerfile: Dockerfile
         ports:
-        - "8080:8080"
+        - "3000:3000"
         restart: always
         volumes:
         - ./cert:/usr/src/app/cert
@@ -14,12 +14,11 @@ services:
         networks:
             - example.com
         hostname: saml-sp
-        domainname: teamskillz.com
+        domainname: iam.com
         extra_hosts:
-        - "tenant1.teamskillz.com:127.0.0.1"
-        - "tenant2.teamskillz.com:127.0.0.1"
+        - "sp.iam.com:127.0.0.1"
 
 networks:
     example.com:
        driver: bridge
-       name: teamskillz.com
+       name: iam.com
