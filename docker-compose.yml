@@ -1,0 +1,25 @@
+version: '3.5'
+services:
+    saml-sp:
+        container_name: passport-saml-nodejs-sample
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+        - "8080:8080"
+        restart: always
+        volumes:
+        - ./cert:/usr/src/app/cert
+        image: malotian/passport-saml-nodejs-sample:latest
+        networks:
+            - example.com
+        hostname: saml-sp
+        domainname: teamskillz.com
+        extra_hosts:
+        - "tenant1.teamskillz.com:127.0.0.1"
+        - "tenant2.teamskillz.com:127.0.0.1"
+
+networks:
+    example.com:
+       driver: bridge
+       name: teamskillz.com
