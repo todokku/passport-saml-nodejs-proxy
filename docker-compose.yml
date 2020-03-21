@@ -10,15 +10,15 @@ services:
         restart: always
         volumes:
         - ./cert:/usr/src/app/cert
-        image: malotian/passport-saml-nodejs-sample:latest
+        image: malotian/passport-saml-nodejs-proxy:latest
         networks:
             - example.com
         hostname: saml-sp
-        domainname: iam.com
+        domainname: example.com
         extra_hosts:
-        - "sp.iam.com:127.0.0.1"
+        - "sp.example.com:127.0.0.1"
 
 networks:
     example.com:
        driver: bridge
-       name: iam.com
+       name: example.com
