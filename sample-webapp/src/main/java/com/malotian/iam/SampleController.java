@@ -19,7 +19,7 @@ public class SampleController {
 		model.addAttribute("headers", headers);
 
 		final Map<String, Object> contents = new HashMap<String, Object>();
-		contents.put("QUERY-STRING-PARAMETERS", params);
+		contents.put("PARAMETERS", params);
 		contents.put("HEADERS", headers);
 		model.addAttribute("contents", contents);
 
