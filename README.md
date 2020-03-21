@@ -1,4 +1,4 @@
-# passport-saml-nodejs-sample
+# passport-saml-nodejs-proxy
 
 ## add new tenant xyz
 - update config.json (self expalnatory) for xyz
