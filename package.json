@@ -6,6 +6,10 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "ejs": ">=2.5.5",
+    "base64-url": ">=2.0.0",
+    "clean-css": ">=4.1.11",
+    "acorn": ">=5.7.4",
     "body-parser": "1.11.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
