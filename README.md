@@ -2,7 +2,7 @@
 
 
 # description
-`sso` is a nodejs based application, that acts as 
+`passport-saml-nodejs-proxy` is a nodejs based application, that acts as 
 1. revrese proxy. 
 2. saml service provider (only authenticated requests can pass through proxy)
 
@@ -20,7 +20,7 @@
 1. update `config.json` (self expalnatory) for `xyz`
 2. create folder `xyz`
 3. copy certificate from idp metdadata to file `xyz/idp-cert.pem`
-4. restart `sso` app
+4. restart `passport-saml-nodejs-proxy` app
   
 # docker test
 
