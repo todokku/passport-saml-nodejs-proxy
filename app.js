@@ -113,7 +113,10 @@ app.use('/', proxy(filter, {
         if (samlProvider === undefined)
             samlProvider = keys[0];
 
-        proxyReq.setHeader('jwt', createToken(req, samlProvider));
+        const samlStrategy = config.saml[samlProvider];
+        const emailAttribute = samlStrategy.emailAttribute;
+        proxyReq.setHeader('x-jwt', createToken(req, samlProvider));
+        proxyReq.setHeader('x-user', req.user[emailAttribute]);
     }
 }));
 
