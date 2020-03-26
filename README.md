@@ -1,6 +1,3 @@
-
-
-
 # description
 `passport-saml-nodejs-proxy` is a nodejs based application, that acts as 
 1. revrese proxy. 
