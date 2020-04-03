@@ -12,7 +12,7 @@ var path = require('path');
 var url = require('url');
 
 var proxy = require('http-proxy-middleware');
-var config = require('./config.json');
+var config = require('./' + process.env.CONFIG_FILE);
 
 passport.serializeUser(function (user, done) {
     done(null, user);
@@ -91,7 +91,7 @@ function createToken(req, samlProvider) {
     const emailAttribute = samlStrategy.emailAttribute;
     console.log('req.user: ' + JSON.stringify(req.user));
     const body = { email: req.user[emailAttribute], provider: samlProvider };
-    return jwt.sign({ user: body }, config.keys.jwtSigningKey);
+    return jwt.sign({ user: req.user }, config.keys.jwtSigningKey);
 }
 
 app.all('*', ensureAuthenticated);
@@ -115,8 +115,14 @@ app.use('/', proxy(filter, {
 
         const samlStrategy = config.saml[samlProvider];
         const emailAttribute = samlStrategy.emailAttribute;
-        proxyReq.setHeader('x-jwt', createToken(req, samlProvider));
-        proxyReq.setHeader('x-user', req.user[emailAttribute]);
+
+
+        var attrs = Object.keys(req.user);
+        for (var i = 0, length = attrs.length; i < length; i++) {
+             var attrName = attrs[i];
+             //proxyReq.setHeader(attrName, req.user[attrName]);
+
+        }
     }
 }));
 
@@ -152,7 +158,10 @@ app.get('/saml/login/fail',
 app.get('/saml/metadata',
     function (req, res) {
         var domain = req.headers.host;
-        const samlProvider = url.parse(req.url, true).query['provider'];
+        var samlProvider = url.parse(req.url, true).query['provider'];
+        if (samlProvider === undefined)
+            samlProvider = keys[0];
+
         res.type('application/xml');
         res.status(200).send(samlProviderStrategies[samlProvider].generateServiceProviderMetadata(fs.readFileSync(__dirname + '/cert/sp.cert.pem', 'utf8')));
     }
