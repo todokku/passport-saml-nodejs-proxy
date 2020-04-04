@@ -63,7 +63,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-function ensureAuthenticated(req, res, next) {
+function detectSamlProvider(req) {
     const preq = url.parse(req.url, true);
     console.log("preq: " + JSON.stringify(preq));
     var samlProvider = preq.query['provider'];
@@ -72,6 +72,13 @@ function ensureAuthenticated(req, res, next) {
     if (samlProvider === undefined)
         samlProvider = keys[0];
 
+    return samlProvider;
+}
+
+function ensureAuthenticated(req, res, next) {
+    const preq = url.parse(req.url, true);
+    samlProvider = detectSamlProvider(req);
+
     if (preq.pathname.startsWith('/non-sso/')) return next();
     if (preq.pathname.startsWith('/saml/')) return next();
 
@@ -79,7 +86,7 @@ function ensureAuthenticated(req, res, next) {
         return res.redirect('/saml/login?provider=' + samlProvider + '&RelayState=' + req.url);
     }
 
-    if (jwt === undefined) {
+    if (preq.query['jwt'] === undefined) {
         return res.redirect(preq.pathname + '?jwt=' + createToken(req, samlProvider));
     }
 
@@ -106,30 +113,22 @@ app.use('/', proxy(filter, {
         '^/non-sso/': '/' // rewrite path
     },
     onProxyReq: function (proxyReq, req, res) {
-        const preq = url.parse(req.url, true);
-        var samlProvider = preq.query['provider'];
-        var jwt = preq.query['jwt'];
-
-        if (samlProvider === undefined)
-            samlProvider = keys[0];
-
+        samlProvider = detectSamlProvider(req);
         const samlStrategy = config.saml[samlProvider];
         const emailAttribute = samlStrategy.emailAttribute;
 
-
         var attrs = Object.keys(req.user);
         for (var i = 0, length = attrs.length; i < length; i++) {
-             var attrName = attrs[i];
-             //proxyReq.setHeader(attrName, req.user[attrName]);
+            var attrName = attrs[i];
+            proxyReq.setHeader('SAML_' + attrName.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '_'), req.user[attrName]);
 
         }
     }
 }));
 
 var sso = function (req, res, next) {
-    var domain = req.headers.host;
-    const samlProvider = url.parse(req.url, true).query['provider'];
-    console.log("samlProvider: " + samlProvider);
+    const preq = url.parse(req.url, true);
+    samlProvider = detectSamlProvider(req);
     const samlStrategy = config.saml[samlProvider];
     console.log('samlStrategy: ' + JSON.stringify(samlStrategy));
     const emailAttribute = samlStrategy.emailAttribute;
@@ -157,11 +156,8 @@ app.get('/saml/login/fail',
 
 app.get('/saml/metadata',
     function (req, res) {
-        var domain = req.headers.host;
-        var samlProvider = url.parse(req.url, true).query['provider'];
-        if (samlProvider === undefined)
-            samlProvider = keys[0];
-
+        const preq = url.parse(req.url, true);
+        samlProvider = detectSamlProvider(req);
         res.type('application/xml');
         res.status(200).send(samlProviderStrategies[samlProvider].generateServiceProviderMetadata(fs.readFileSync(__dirname + '/cert/sp.cert.pem', 'utf8')));
     }
@@ -184,3 +180,4 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+

@@ -15,7 +15,9 @@ services:
         - ./cert:/usr/src/app/cert
         image: malotian/passport-saml-nodejs-proxy:latest
         networks:
-            - docker.local
+            docker.local:
+                aliases:
+                    - sp1.docker.local
         hostname: sp1
         domainname: docker.local
     sp2:
@@ -33,7 +35,9 @@ services:
         - ./cert:/usr/src/app/cert
         image: malotian/passport-saml-nodejs-proxy:latest
         networks:
-            - docker.local
+            docker.local:
+                aliases:
+                    - sp2.docker.local
         hostname: sp2
         domainname: docker.local        
     sample-webapp:
