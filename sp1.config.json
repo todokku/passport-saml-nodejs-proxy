@@ -7,9 +7,9 @@
         "cookieSigningKeys": "secret"
     },
     "saml": {
-        "test.gluu.org": {
-            "callbackUrl": "https://sp1.docker.local:8443/saml/login/callback?provider=test.gluu.org",
-            "entryPoint": "https://test.gluu.org/idp/profile/SAML2/Redirect/SSO",
+        "gluu": {
+            "callbackUrl": "https://sp1.docker.local:8443/saml/login/callback?provider=gluu.ubuntu.nameid.io",
+            "entryPoint": "https://gluu.ubuntu.nameid.io/idp/profile/SAML2/Redirect/SSO",
             "issuer": "https://sp1.docker.local:8443",
             "emailAttribute": "email"
         }
