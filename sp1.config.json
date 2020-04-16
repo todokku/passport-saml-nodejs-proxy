@@ -8,9 +8,9 @@
     },
     "saml": {
         "gluu": {
-            "callbackUrl": "https://sp1.docker.local:8443/saml/login/callback?provider=gluu.ubuntu.nameid.io",
+            "callbackUrl": "https://sp1.ubuntu.nameid.io:8443/saml/login/callback?provider=gluu",
             "entryPoint": "https://gluu.ubuntu.nameid.io/idp/profile/SAML2/Redirect/SSO",
-            "issuer": "https://sp1.docker.local:8443",
+            "issuer": "https://sp1.ubuntu.nameid.io:8443",
             "emailAttribute": "email"
         }
     }

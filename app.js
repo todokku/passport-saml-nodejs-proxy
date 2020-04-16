@@ -114,6 +114,7 @@ app.use('/', proxy(filter, {
     },
     onProxyReq: function (proxyReq, req, res) {
         samlProvider = detectSamlProvider(req);
+	if (req.user === undefined) return;
         const samlStrategy = config.saml[samlProvider];
         const emailAttribute = samlStrategy.emailAttribute;
 
@@ -134,7 +135,10 @@ var sso = function (req, res, next) {
     const emailAttribute = samlStrategy.emailAttribute;
 
     passport.authenticate(samlProvider, function (err, user, info) {
-        if (err) { return next(err); }
+        if (err) { 
+            console.log(err);
+            return next(err);
+	}
         if (!user) { return res.redirect('/saml/login?provider=' + samlProvider); }
         req.logIn(user, function (err) {
             if (err) { return next(err); }
